@@ -31,16 +31,17 @@ const insertOrUpdateProfile = async (data: Profile): Promise<Profile> => {
 };
 
 const getAllUser = async () => {
-  const result = await prisma.user.findMany({
-    // select: {
-    //   email: true,
-    // },
+  // const result = await prisma.user.findMany({
+  //   // select: {
+  //   //   email: true,
+  //   // },
 
-    // populate in prisma
-    include: {
-      profile: true,
-    },
-  });
+  //   // populate in prisma
+  //   include: {
+  //     profile: true,
+  //   },
+  // });
+  const result = await prisma.$queryRaw`select * from users`;
   return result;
 };
 

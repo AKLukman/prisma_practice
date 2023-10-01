@@ -83,10 +83,37 @@ const updatePost = async (
   });
   return result;
 };
+
 const deletePost = async (id: number): Promise<Post> => {
   const result = await prisma.post.delete({
     where: {
       id,
+    },
+  });
+  return result;
+};
+
+// aggregation and groping
+const aggregateAndGrouping = async () => {
+  // aggregation
+  //   const result = await prisma.post.aggregate({
+  //     _avg: {
+  //       categoryId: true,
+  //       authorId: true,
+  //     },
+  //     _count: {
+  //       categoryId: true,
+  //     },
+  //     _sum: {
+  //       categoryId: true,
+  //     },
+  //   });
+
+  // groping
+  const result = await prisma.post.groupBy({
+    by: ["title", "categoryId"],
+    _count: {
+      title: true,
     },
   });
   return result;
@@ -98,4 +125,5 @@ export const PostService = {
   getSinglePost,
   updatePost,
   deletePost,
+  aggregateAndGrouping,
 };

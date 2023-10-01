@@ -72,10 +72,24 @@ const deletePost = async (req: Request, res: Response) => {
   }
 };
 
+const aggregateAndGrouping = async (req: Request, res: Response) => {
+  try {
+    const result = await PostService.aggregateAndGrouping();
+    return res.send({
+      success: true,
+      message: "Get a average result",
+      data: result,
+    });
+  } catch (error) {
+    res.send(error);
+  }
+};
+
 export const PostController = {
   createPost,
   getAllPost,
   getSinglePost,
   updatePost,
   deletePost,
+  aggregateAndGrouping,
 };
